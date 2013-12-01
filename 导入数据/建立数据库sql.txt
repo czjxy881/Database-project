@@ -1,0 +1,41 @@
+use master
+drop database xjgl
+go
+create database xjgl
+go
+use xjgl
+
+create table student(
+sno char(8),
+sname char(6) not null,
+ssex char(2) not null,
+primary key (sno),
+check (ssex in ('男','女'))
+)
+
+create table course(
+cno char(9),
+cname char(48) not null,
+ccredit int,
+primary key (cno)
+)
+
+create table pcourse(
+cno char(9),
+cpno char(9),
+primary key (cno,cpno),
+foreign key (cno) references course(cno),
+foreign key (cpno) references course(cno)
+)
+
+create table sc(
+sno char(8),
+cno char(9),
+grade int,
+primary key (sno,cno),
+foreign key (sno) references student(sno),
+foreign key (cno) references course(cno),
+check (grade is null or grade>=0 and grade<=100)
+)
+go
+--最后可以使用导入数据txt
