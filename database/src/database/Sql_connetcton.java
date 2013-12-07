@@ -89,8 +89,10 @@ public class Sql_connetcton {
 			Vector<Vector<String>> ans=new Vector<Vector<String>>();
 			while(result.next()){
 				Vector<String> s=new Vector<String>();
-				for(int i=1;i<=4;i++)
+				for(int i=1;i<=4;i++){
 					s.add(result.getString(i));
+					if(s.lastElement()==null)s.set(i, "NULL");
+				}
 				ans.add(s);
 			}
 			return ans;
@@ -108,6 +110,27 @@ public class Sql_connetcton {
 			while(result.next()){
 				for(int i=1;i<=6;i++)
 					ans.add(result.getString(i));
+			}
+			return ans;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public static Vector<Vector> getAllStudent(){
+		sql="exec Ñ§Éú_Find NULL,NULL,NULL,NULL,NULL";
+		try {
+			ResultSet result=stmt.executeQuery(sql);
+			Vector<Vector> ans=new Vector<Vector>();
+			while(result.next()){
+				Vector s=new Vector<String>();
+				s.add(false);
+				for(int i=1;i<=4;i++){
+					s.add(result.getString(i));
+					if(s.lastElement()==null)s.set(i, "NULL");
+				}
+				ans.add(s);
 			}
 			return ans;
 		} catch (SQLException e) {
