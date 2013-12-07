@@ -64,7 +64,7 @@ public class Sql_connetcton {
 		}
 	}
 	public static boolean insert(Vector<String> data,String name){
-		login_s("admin","admin");
+		//login_s("admin","admin");
 			sql="exec "+name+"_INS ";
 			for(int i=0;i<data.size();i++){
 				if(data.get(i).equals("NULL")==false){
@@ -78,28 +78,57 @@ public class Sql_connetcton {
 				stmt.execute(sql);
 				return true;
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				//e.printStackTrace();
 				return false;
 			}
-		
-		
-		
+	}
+	public static Vector<Vector<String>> getScoreDetail(String num){
+		sql="exec ³É¼¨_Find \""+num+"\"";
+		try {
+			ResultSet result=stmt.executeQuery(sql);
+			Vector<Vector<String>> ans=new Vector<Vector<String>>();
+			while(result.next()){
+				Vector<String> s=new Vector<String>();
+				for(int i=1;i<=4;i++)
+					s.add(result.getString(i));
+				ans.add(s);
+			}
+			return ans;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public static Vector<String> getPersons(String num){
+		sql="exec Ñ§·Ö_Find \""+num+"\"";
+		try {
+			ResultSet result=stmt.executeQuery(sql);
+			Vector<String> ans=new Vector<String>();
+			while(result.next()){
+				for(int i=1;i<=6;i++)
+					ans.add(result.getString(i));
+			}
+			return ans;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 	public static void close(){
 		try {
 			if(stmt!=null)stmt.close();
 			if(con!=null)con.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 	}
 	public static void main(String[] args) {
-	//	System.out.print(login_s("admin","admin"));
-		
-		System.out.print(find_student(1, null));
+		System.out.print(login_s("admin","admin"));
+		int a=0;
+		//System.out.print(find_student(1, null));
 	}
 	
 }

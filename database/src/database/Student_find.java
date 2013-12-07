@@ -24,6 +24,8 @@ import org.omg.CORBA.PUBLIC_MEMBER;
 import java.awt.List;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class Student_find extends JFrame {
 
@@ -36,6 +38,7 @@ public class Student_find extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					Sql_connetcton.login_s("admin","admin");
 					Student_find frame = new Student_find();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -95,7 +98,45 @@ public class Student_find extends JFrame {
 				JTable table = new JTable(a, name){
 					public boolean isCellEditable(int row, int column){
 	                             return false;}//表格不允许被编辑
+					
 				};
+				table.addMouseListener(new MouseListener() {
+					
+					@Override
+					public void mouseReleased(MouseEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void mousePressed(MouseEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void mouseExited(MouseEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						if(e.getClickCount() == 2){
+							int row =((JTable)e.getSource()).rowAtPoint(e.getPoint()); //获得行位置 
+							String num=String.valueOf(((JTable)e.getSource()).getValueAt(row, 1));
+							StudentDetial now=new StudentDetial(num);
+							now.setVisible(true);
+						} 
+						else return; 
+					}
+				});
 				panel.removeAll();
 				JScrollPane sPane=new JScrollPane(table);
 				sPane.setAutoscrolls(true);

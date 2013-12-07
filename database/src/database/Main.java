@@ -65,8 +65,8 @@ public class Main extends JFrame {
 		JButton button_1 = new JButton("\u67E5\u8BE2\u5B66\u751F\u4FE1\u606F");
 		contentPane.add(button_1);
 		
-		JButton button_2 = new JButton("\u67E5\u8BE2\u4EFB\u8BFE\u6559\u5E08");
-		contentPane.add(button_2);
+		JButton button_6 = new JButton("\u5F55\u5165\u5B66\u751F\u4FE1\u606F");
+		contentPane.add(button_6);
 		
 		JButton button_3 = new JButton("\u5BFC\u5165\u8BFE\u7A0B");
 		button_3.addActionListener(new ActionListener() {
@@ -89,14 +89,14 @@ public class Main extends JFrame {
 		JButton button_5 = new JButton("\u5F55\u5165\u6210\u7EE9");
 		contentPane.add(button_5);
 		
-		JButton button_6 = new JButton("\u5B66\u751F\u6210\u7EE9\u67E5\u8BE2");
-		contentPane.add(button_6);
-		
-		JButton button_7 = new JButton("\u5C06\u88AB\u5F00\u9664\u5B66\u751F\u540D\u5355");
-		contentPane.add(button_7);
+		JButton button_2 = new JButton("\u67E5\u8BE2\u4EFB\u8BFE\u6559\u5E08");
+		contentPane.add(button_2);
 		
 		JButton button_8 = new JButton("\u4FEE\u6539\u4EFB\u8BFE\u6559\u5E08");
 		contentPane.add(button_8);
+		
+		JButton button_7 = new JButton("\u5C06\u88AB\u5F00\u9664\u5B66\u751F\u540D\u5355");
+		contentPane.add(button_7);
 		
 		JButton button_9 = new JButton("\u6CE8\u9500\u767B\u5F55");
 		button_9.addActionListener(new ActionListener() {
