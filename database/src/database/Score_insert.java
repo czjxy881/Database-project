@@ -51,7 +51,7 @@ public class Score_insert extends JFrame {
 	 */
 	public Score_insert() {
 		setTitle("\u8BFE\u7A0B\u6210\u7EE9\u5BFC\u5165");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		this.setResizable(false);//æ”÷–
@@ -214,10 +214,6 @@ public class Score_insert extends JFrame {
 				for(String s:name)names.add(s);
 				DefaultTableModel dataModel=new DefaultTableModel(ans,names)
 				{
-					
-					
-
-					
 					@Override
 					public boolean isCellEditable(int rowIndex, int columnIndex) {
 				
@@ -243,8 +239,6 @@ public class Score_insert extends JFrame {
 					public int getColumnCount() {
 						return names.size()+1;
 					}
-
-					
 				};
 				
 				table.setModel(dataModel);

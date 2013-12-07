@@ -7,13 +7,17 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.RowSpec;
+
 import net.miginfocom.swing.MigLayout;
+
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
@@ -95,12 +99,25 @@ public class Main extends JFrame {
 		contentPane.add(button_8);
 		
 		JButton button_9 = new JButton("\u6CE8\u9500\u767B\u5F55");
+		button_9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Sql_connetcton.close();
+				Main.this.dispose();
+				Login login=new Login();
+				login.setVisible(true);
+			}
+		});
 		contentPane.add(button_9);
 		
 		JPanel panel = new JPanel();
 		contentPane.add(panel);
 		
 		JButton button_10 = new JButton("\u9000\u51FA\u7CFB\u7EDF");
+		button_10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		contentPane.add(button_10);
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

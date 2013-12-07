@@ -52,7 +52,7 @@ public class Course_insert extends JFrame {
 	 */
 	public Course_insert() {
 		setTitle("\u8BFE\u7A0B\u4FE1\u606F\u5BFC\u5165");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		this.setResizable(false);//æ”÷–

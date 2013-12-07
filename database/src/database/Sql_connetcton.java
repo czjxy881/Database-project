@@ -86,6 +86,16 @@ public class Sql_connetcton {
 		
 		
 	}
+	public static void close(){
+		try {
+			if(stmt!=null)stmt.close();
+			if(con!=null)con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	public static void main(String[] args) {
 	//	System.out.print(login_s("admin","admin"));
 		

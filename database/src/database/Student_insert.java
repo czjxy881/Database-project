@@ -66,7 +66,7 @@ public class Student_insert extends JFrame {
 	 */
 	public Student_insert() {
 		setTitle("\u5B66\u751F\u4FE1\u606F\u5BFC\u5165");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		this.setResizable(false);//æ”÷–
@@ -266,10 +266,7 @@ public class Student_insert extends JFrame {
 				for(String s:name)names.add(s);
 				DefaultTableModel dataModel=new DefaultTableModel(ans,names)
 				{
-					
-					
 
-					
 					@Override
 					public boolean isCellEditable(int rowIndex, int columnIndex) {
 				
