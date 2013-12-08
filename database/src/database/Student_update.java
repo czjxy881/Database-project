@@ -150,6 +150,7 @@ public class Student_update extends JFrame {
 					for(int i=0;i<rows;i++){
 						
 					}
+				}
 			}
 		});
 		button_1.setBounds(300, 6, 93, 23);

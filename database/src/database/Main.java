@@ -32,6 +32,7 @@ public class Main extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					Sql_connetcton.login_s("admin","admin");
 					Main frame = new Main();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -62,11 +63,14 @@ public class Main extends JFrame {
 			}
 		});
 		
-		JButton button_1 = new JButton("\u67E5\u8BE2\u5B66\u751F\u4FE1\u606F");
-		contentPane.add(button_1);
-		
-		JButton button_6 = new JButton("\u5F55\u5165\u5B66\u751F\u4FE1\u606F");
-		contentPane.add(button_6);
+		JButton button_4 = new JButton("\u5BFC\u5165\u6210\u7EE9");
+		button_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Score_insert si=new Score_insert();
+				si.setVisible(true);
+			}
+		});
+		contentPane.add(button_4);
 		
 		JButton button_3 = new JButton("\u5BFC\u5165\u8BFE\u7A0B");
 		button_3.addActionListener(new ActionListener() {
@@ -77,17 +81,14 @@ public class Main extends JFrame {
 		});
 		contentPane.add(button_3);
 		
-		JButton button_4 = new JButton("\u5BFC\u5165\u6210\u7EE9");
-		button_4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Score_insert si=new Score_insert();
-				si.setVisible(true);
-			}
-		});
-		contentPane.add(button_4);
+		JButton button_6 = new JButton("\u5F55\u5165\u5B66\u751F\u4FE1\u606F");
+		contentPane.add(button_6);
 		
 		JButton button_5 = new JButton("\u5F55\u5165\u6210\u7EE9");
 		contentPane.add(button_5);
+		
+		JButton button_1 = new JButton("\u67E5\u8BE2\u5B66\u751F\u4FE1\u606F");
+		contentPane.add(button_1);
 		
 		JButton button_2 = new JButton("\u67E5\u8BE2\u4EFB\u8BFE\u6559\u5E08");
 		contentPane.add(button_2);
