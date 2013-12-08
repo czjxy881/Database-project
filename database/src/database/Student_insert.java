@@ -157,7 +157,7 @@ public class Student_insert extends JFrame {
 		contentPane.add(button_2);
 		
 		JLabel label = new JLabel("\u5BFC\u5165\u683C\u5F0F:");
-		label.setBounds(10, 38, 54, 15);
+		label.setBounds(10, 38, 82, 15);
 		contentPane.add(label);
 		
 		textField_1 = new JTextField();
@@ -247,11 +247,6 @@ public class Student_insert extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(new BorderLayout(0, 0));//保持边距，不然会超出显示区域
 		final JTable table = new JTable();
-				/*{
-					public boolean isCellEditable(int row, int column){
-	                             return false;}//表格不允许被编辑
-				};
-				*/
 
 		panel.removeAll();
 		JScrollPane sPane=new JScrollPane(table);

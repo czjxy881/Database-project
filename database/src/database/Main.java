@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
@@ -15,11 +16,16 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.RowSpec;
+import com.sun.management.jmx.Trace;
 
 import net.miginfocom.swing.MigLayout;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import javax.swing.JLabel;
+import javax.swing.JEditorPane;
+import javax.swing.JTextPane;
+import javax.swing.DropMode;
 
 public class Main extends JFrame {
 
@@ -46,7 +52,7 @@ public class Main extends JFrame {
 	 * Create the frame.
 	 */
 	public Main() {
-		setTitle("\u5B66\u7C4D\u7BA1\u7406\u7CFB\u7EDF");
+		setTitle("\u5B66\u7C4D\u7BA1\u7406\u7CFB\u7EDF-jxy");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -82,21 +88,52 @@ public class Main extends JFrame {
 		contentPane.add(button_3);
 		
 		JButton button_6 = new JButton("\u5F55\u5165\u5B66\u751F\u4FE1\u606F");
+		button_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Student_update su=new Student_update();
+				su.setVisible(true);
+			}
+		});
 		contentPane.add(button_6);
 		
 		JButton button_5 = new JButton("\u5F55\u5165\u6210\u7EE9");
+		button_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Score_update su=new Score_update();
+				su.setVisible(true);
+			}
+		});
 		contentPane.add(button_5);
 		
 		JButton button_1 = new JButton("\u67E5\u8BE2\u5B66\u751F\u4FE1\u606F");
 		contentPane.add(button_1);
 		
 		JButton button_2 = new JButton("\u67E5\u8BE2\u4EFB\u8BFE\u6559\u5E08");
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Teacher_Find tf=new Teacher_Find();
+				tf.setVisible(true);
+			}
+		});
 		contentPane.add(button_2);
 		
-		JButton button_8 = new JButton("\u4FEE\u6539\u4EFB\u8BFE\u6559\u5E08");
+		JButton button_8 = new JButton("\u73ED\u7EA7\u4FEE\u6539");
+		button_8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String s=JOptionPane.showInputDialog("°àºÅ:");
+				Class_insert ci=new Class_insert(s);
+				ci.setVisible(true);
+			}
+		});
 		contentPane.add(button_8);
 		
 		JButton button_7 = new JButton("\u5C06\u88AB\u5F00\u9664\u5B66\u751F\u540D\u5355");
+		button_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Fire f=new Fire();
+				f.setVisible(true);
+			}
+		});
 		contentPane.add(button_7);
 		
 		JButton button_9 = new JButton("\u6CE8\u9500\u767B\u5F55");
@@ -112,6 +149,14 @@ public class Main extends JFrame {
 		
 		JPanel panel = new JPanel();
 		contentPane.add(panel);
+		
+		JTextPane textPane = new JTextPane();
+		textPane.setEnabled(false);
+		textPane.setEditable(false);
+		textPane.setContentType("text");
+		textPane.setDropMode(DropMode.ON);
+		textPane.setText("    \u8D3E\u65B0\u79B9\r\n\u897F\u5B89\u7535\u5B50\u79D1\u6280\u5927\u5B66\r\n    03111002");
+		panel.add(textPane);
 		
 		JButton button_10 = new JButton("\u9000\u51FA\u7CFB\u7EDF");
 		button_10.addActionListener(new ActionListener() {

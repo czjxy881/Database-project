@@ -2,6 +2,8 @@ package database;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
@@ -63,25 +65,6 @@ public class Sql_connetcton {
 			return null;
 		}
 	}
-	public static boolean insert(Vector<String> data,String name){
-		//login_s("admin","admin");
-			sql="exec "+name+"_INS ";
-			for(int i=0;i<data.size();i++){
-				if(data.get(i).equals("NULL")==false){
-					sql+="\""+data.get(i)+"\"";
-				}else{
-					sql+="NULL";
-				}
-				if(i!=data.size()-1)sql+=",";
-			}
-			try {
-				stmt.execute(sql);
-				return true;
-			} catch (SQLException e) {
-				//e.printStackTrace();
-				return false;
-			}
-	}
 	public static Vector<Vector<String>> getScoreDetail(String num){
 		sql="exec 成绩_Find \""+num+"\"";
 		try {
@@ -139,6 +122,165 @@ public class Sql_connetcton {
 			return null;
 		}
 	}
+	public static Map<String, String> getMajority(){
+		sql="exec 专业_Find";
+		try {
+			ResultSet result=stmt.executeQuery(sql);
+			Map<String, String> ans=new HashMap<String, String>();
+			while(result.next()){
+				String s=result.getString(1);
+				ans.put(result.getString(2), s);
+			}
+			return ans;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public static Map<String, String> getCoures(){
+		sql="exec 课程_Find";
+		try {
+			ResultSet result=stmt.executeQuery(sql);
+			Map<String, String> ans=new HashMap<String, String>();
+			while(result.next()){
+				ans.put(result.getString(1), result.getString(2));
+			}
+			return ans;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public static Map<String, String> getScore(String code){
+		sql="exec 成绩_Find \""+code+"\"";
+		try {
+			ResultSet result=stmt.executeQuery(sql);
+			Map<String, String> ans=new HashMap<String, String>();
+			while(result.next()){
+				ans.put(result.getString(1), result.getString(4));
+			}
+			return ans;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public static Vector getClassDetial(String code){
+		sql="exec 班级_Find \""+code+"\"";
+		try {
+			ResultSet result=stmt.executeQuery(sql);
+			Vector ans=new Vector();
+			while(result.next()){
+				for(int i=2;i<=3;i++)
+					ans.add(result.getString(i));
+			}
+			if(ans.size()<1){
+				ans.add("");
+				ans.add("");
+			}
+			return ans;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public static Vector<Vector> kill(int key){
+		sql="exec 开除  \""+String.valueOf(key)+"\"";
+		try {
+			ResultSet result=stmt.executeQuery(sql);
+			Vector<Vector> ans=new Vector<Vector>();
+			while(result.next()){
+				Vector s=new Vector<String>();
+				for(int i=1;i<=4;i++){
+					s.add(result.getString(i));
+				}
+				ans.add(s);
+			}
+			return ans;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public static Vector<Vector> teacherFind(String key){
+		if(key.equals(""))return null;
+		sql="exec 教师_Find  \""+key+"\"";
+		try {
+			ResultSet result=stmt.executeQuery(sql);
+			Vector<Vector> ans=new Vector<Vector>();
+			int ind=1;
+			while(result.next()){
+				Vector s=new Vector<String>();
+				s.add(ind++);
+				for(int i=1;i<=2;i++){
+					s.add(result.getString(i));
+				}
+				ans.add(s);
+			}
+			return ans;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	private static String add_sql(String sql,Vector<String> data){
+		for(int i=0;i<data.size();i++){
+			String s=data.get(i);
+			if(s.equals("NULL")==false && s.equals("")==false){
+				sql+="\""+data.get(i)+"\"";
+			}else{
+				sql+="NULL";
+			}
+			if(i!=data.size()-1)sql+=",";
+		}
+		return sql;
+	}
+	public static boolean update(Vector<String> data,String name){
+		sql="exec "+name+"_UDA ";
+		sql=add_sql(sql, data);
+		try {
+			stmt.execute(sql);
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	public static boolean insert(Vector<String> data,String name){
+			sql="exec "+name+"_INS ";
+			sql=add_sql(sql, data);
+			try {
+				stmt.execute(sql);
+				return true;
+			} catch (SQLException e) {
+				//e.printStackTrace();
+				return false;
+			}
+	}
+	public static boolean delScore(Vector<String> data){
+		sql="exec 成绩_DEL ";
+		sql=add_sql(sql, data);
+		try {
+			stmt.execute(sql);
+			return true;
+		} catch (SQLException e) {
+			//e.printStackTrace();
+			return false;
+		}
+	}
+	public static boolean delStudent(String code){
+		sql="exec 学生_DEL \""+code+"\"";
+		try {
+			stmt.execute(sql);
+			return true;
+		} catch (SQLException e) {
+			//e.printStackTrace();
+			return false;
+		}
+	}
 	public static void close(){
 		try {
 			if(stmt!=null)stmt.close();
@@ -146,11 +288,22 @@ public class Sql_connetcton {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+	}
+	public static boolean Do(String sql1){
+		try {
+			
+			stmt.execute(sql1);
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	public static void main(String[] args) {
 		System.out.print(login_s("admin","admin"));
+		getScore("03051002");
 		int a=0;
+		close();
 		//System.out.print(find_student(1, null));
 	}
 	

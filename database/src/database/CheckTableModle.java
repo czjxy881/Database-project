@@ -5,7 +5,10 @@ import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
 public class CheckTableModle extends DefaultTableModel {
-
+	public boolean isCellEditable(int rowIndex, int columnIndex) {
+		if(columnIndex==0)return true;
+		return false;
+	}
     public CheckTableModle(Vector data, Vector columnNames) {
         super(data, columnNames);
        

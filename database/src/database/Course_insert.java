@@ -110,7 +110,7 @@ public class Course_insert extends JFrame {
 		contentPane.add(button_2);
 		
 		JLabel label = new JLabel("\u5BFC\u5165\u683C\u5F0F:");
-		label.setBounds(10, 38, 54, 15);
+		label.setBounds(10, 38, 87, 15);
 		contentPane.add(label);
 		
 		textField_1 = new JTextField();
@@ -118,7 +118,7 @@ public class Course_insert extends JFrame {
 		contentPane.add(textField_1);
 		textField_1.setColumns(10);
 		 checkBox = new JCheckBox("\u8BFE\u7A0B\u53F7");
-		checkBox.setBounds(10, 59, 63, 23);
+		checkBox.setBounds(10, 59, 107, 23);
 		checkBox.addActionListener(checkBoxListener);
 		checkBox.addActionListener(new ActionListener() {
 			
