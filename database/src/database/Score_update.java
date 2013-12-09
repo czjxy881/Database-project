@@ -48,13 +48,13 @@ public class Score_update extends JFrame {
 	private void refresh(){ 
 		if(coures==null) coures=Sql_connetcton.getCoures(); //课表Map
 		cc=code.getText();
-		String [][]detail=Sql_connetcton.find_student(1,cc); //班级,学号,姓名,性别,出生日期
-		if(detail==null||detail.length==0){
+		Vector detail=Sql_connetcton.getPersons(cc); //学号,姓名
+		if(detail==null||detail.size()==0){
 			JOptionPane.showMessageDialog(getParent(), "学号错误,没有此人", "错误", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
+		name1.setText((String) detail.get(1));
 		score=Sql_connetcton.getScore(cc); //成绩Map
-		name1.setText(detail[0][2]);
 		
 		Vector<Vector> ans=new Vector<Vector>();
 		Vector<String> names=new Vector<String>();
@@ -110,7 +110,7 @@ public class Score_update extends JFrame {
 		contentPane.add(name1);
 		
 		
-		JButton button = new JButton("\u67E5\u8BE2");
+		final JButton button = new JButton("\u67E5\u8BE2");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				refresh();
@@ -160,6 +160,15 @@ public class Score_update extends JFrame {
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(10, 40, 414, 211);
 		contentPane.add(scrollPane);
+		code.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				button.doClick();
+				 
+			}
+		});
 	}
 
 }

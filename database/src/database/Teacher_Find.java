@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -24,6 +25,7 @@ public class Teacher_Find extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTable table;
+	private JLabel name1;
 
 	/**
 	 * Launch the application.
@@ -43,8 +45,15 @@ public class Teacher_Find extends JFrame {
 	}
 	private String[] name=new String[]{"序号","课程名","任课教师"};
 	private void refresh(){
+		String cc=textField.getText();
+		Vector detail=Sql_connetcton.getPersons(cc); //学号,姓名
+		if(detail==null||detail.size()==0){
+			JOptionPane.showMessageDialog(getParent(), "学号错误,没有此人", "错误", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		name1.setText((String) detail.get(1));
 		
-		Vector<Vector> ans=Sql_connetcton.teacherFind(textField.getText());
+		Vector<Vector> ans=Sql_connetcton.teacherFind(cc);
 		Vector<String> names=new Vector<String>();
 		for(String s:name)names.add(s);
 		TableModel tableModle=new DefaultTableModel(ans, names){
@@ -72,27 +81,43 @@ public class Teacher_Find extends JFrame {
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		textField = new JTextField();
-		textField.setBounds(81, 10, 96, 21);
+		textField.setBounds(56, 10, 96, 21);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		JLabel label = new JLabel("\u5B66\u53F7:");
-		label.setBounds(43, 13, 54, 15);
+		label.setBounds(24, 13, 54, 15);
 		contentPane.add(label);
 		
-		JButton button = new JButton("\u67E5\u8BE2");
+		final JButton button = new JButton("\u67E5\u8BE2");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				refresh();
 			}
 		});
-		button.setBounds(235, 9, 93, 23);
+		button.setBounds(282, 9, 93, 23);
 		contentPane.add(button);
 		
 		table=new JTable();
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(10, 37, 414, 214);
 		contentPane.add(scrollPane);
+		
+		JLabel label_1 = new JLabel("\u59D3\u540D:");
+		label_1.setBounds(158, 13, 54, 15);
+		contentPane.add(label_1);
+		
+		name1 = new JLabel("");
+		name1.setBounds(192, 13, 54, 15);
+		contentPane.add(name1);
+		textField.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				button.doClick();
+				 
+			}
+		});
 	}
-
 }

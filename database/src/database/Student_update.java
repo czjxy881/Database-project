@@ -18,8 +18,16 @@ import javax.swing.table.DefaultTableModel;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JComboBox;
+
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+
+import java.awt.Component;
 
 public class Student_update extends JFrame {
 
@@ -149,7 +157,20 @@ public class Student_update extends JFrame {
 		button = new JButton("\u5F55\u5165");
 		button.setBounds(272, 6, 93, 23);
 		contentPane.add(button);
-		
+		Brith.addFocusListener(new FocusListener() {
+			
+			@Override
+			public void focusLost(FocusEvent e) {
+				if(Brith.getText().equals(""))Brith.setText("yyyy.mm.dd");
+				
+			}
+			
+			@Override
+			public void focusGained(FocusEvent e) {
+				if(Brith.getText().equals(""))Brith.setText("");
+				
+			}
+		});
 		JPanel panel = new JPanel();
 		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panel.setBounds(0, 69, 434, 192);
@@ -316,5 +337,7 @@ public class Student_update extends JFrame {
 		});
 		this.setResizable(false);//æ”÷–
 		this.setLocationRelativeTo(null);
+		//num.setn(Name);
+			setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{ classcode,num,  Name, Sex,Brith,button,button_2,textField_2, button_1, btnNewButton,table}));
 	}
 }

@@ -12,13 +12,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.factories.FormFactory;
-import com.jgoodies.forms.layout.RowSpec;
-import com.sun.management.jmx.Trace;
 
-import net.miginfocom.swing.MigLayout;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -26,6 +20,8 @@ import javax.swing.JLabel;
 import javax.swing.JEditorPane;
 import javax.swing.JTextPane;
 import javax.swing.DropMode;
+import java.awt.Color;
+import javax.swing.UIManager;
 
 public class Main extends JFrame {
 
@@ -121,6 +117,7 @@ public class Main extends JFrame {
 		button_8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String s=JOptionPane.showInputDialog("°àºÅ:");
+				if(s==null||s.equals(""))return;
 				Class_insert ci=new Class_insert(s);
 				ci.setVisible(true);
 			}
@@ -150,13 +147,9 @@ public class Main extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel);
 		
-		JTextPane textPane = new JTextPane();
-		textPane.setEnabled(false);
-		textPane.setEditable(false);
-		textPane.setContentType("text");
-		textPane.setDropMode(DropMode.ON);
-		textPane.setText("    \u8D3E\u65B0\u79B9\r\n\u897F\u5B89\u7535\u5B50\u79D1\u6280\u5927\u5B66\r\n    03111002");
-		panel.add(textPane);
+		JLabel lblNewLabel = new JLabel("<html><body><center>\r\n\u8D3E\u65B0\u79B9<br>\r\n\u897F\u5B89\u7535\u5B50\u79D1\u6280\u5927\u5B66<br>\r\n03111002<br></center></body></html>");
+		panel.add(lblNewLabel);
+
 		
 		JButton button_10 = new JButton("\u9000\u51FA\u7CFB\u7EDF");
 		button_10.addActionListener(new ActionListener() {

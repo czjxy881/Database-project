@@ -26,10 +26,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+import java.awt.Component;
 
 public class Student_find extends JFrame {
 
 	private JPanel contentPane;
+	private TextField textField;
 
 	/**
 	 * Launch the application.
@@ -60,35 +63,35 @@ public class Student_find extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		final Choice choice = new Choice();
+
+		
+		 textField = new TextField();
+		 textField.setBounds(180, 10, 161, 23);
+		 contentPane.add(textField);
+
+		
+				final Choice choice = new Choice();
 		choice.setBounds(58, 10, 60, 21);
 		choice.add("班号");
 		choice.add("学号");
 		choice.add("姓名");
-		choice.add("性别");
-	
-		contentPane.add(choice);
-		
-		Label label = new Label("\u67E5\u8BE2\u9879:");
-		label.setBounds(10, 10, 69, 23);
-		contentPane.add(label);
-		
-		final TextField textField = new TextField();
-		textField.setBounds(180, 10, 161, 23);
-		contentPane.add(textField);
-		
-		Label label_1 = new Label("\u67E5\u8BE2\u5185\u5BB9:");
-		label_1.setBounds(124, 10, 69, 23);
-		contentPane.add(label_1);
-		
+		choice.add("性别");contentPane.add(choice);
 		final JButton button = new JButton("\u67E5\u8BE2");
 		button.setBounds(347, 10, 76, 23);
 		contentPane.add(button);
 		
-		final JPanel panel = new JPanel();
+				final JPanel panel = new JPanel();
 		panel.setBounds(10, 39, 414, 212);
 		contentPane.add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
+		this.getRootPane().setDefaultButton(button);
+		Label label_1 = new Label("\u67E5\u8BE2\u5185\u5BB9:");
+		label_1.setBounds(124, 10, 69, 23);
+		contentPane.add(label_1);
+		
+		Label label = new Label("\u67E5\u8BE2\u9879:");
+		label.setBounds(10, 10, 69, 23);
+		contentPane.add(label);
 		
 		
 		final Object name[]={"班号","学号","姓名","性别","出生日期"};
@@ -144,16 +147,16 @@ public class Student_find extends JFrame {
 				validate();
 			}
 		});
-		
-		textField.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				button.doClick();
-				 
-			}
-		});
+		 textField.addActionListener(new ActionListener() {
+			 	
+			 	@Override
+			 	public void actionPerformed(ActionEvent e) {
+			 		
+			 		button.doClick();
+			 		 
+			 	}
+			 });
+
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 	}

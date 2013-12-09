@@ -1,22 +1,82 @@
 package database;
-import java.sql.*;
+import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Vector;
 
-import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
-import com.sun.xml.internal.fastinfoset.util.StringArray;
+import sun.misc.OSEnvironment;
 
-import sun.jdbc.odbc.JdbcOdbcDriver;
+import com.ice.jni.registry.NoSuchKeyException;
+import com.ice.jni.registry.RegDWordValue;
+import com.ice.jni.registry.RegStringValue;
+import com.ice.jni.registry.Registry;
+import com.ice.jni.registry.RegistryException;
+import com.ice.jni.registry.RegistryKey;
+import com.ice.jni.registry.RegistryValue;
+import com.sun.corba.se.pept.transport.ContactInfo;
+
+
 public class Sql_connetcton {
 	private static String url="jdbc:odbc:jxy";
 	private static Connection con=null;
 	private static String sql;
 	private static Statement stmt;
+	public static void reg(){ //×¢²áodbc
+		Properties props = System.getProperties();  
+		props.get("os.name");
+		if(((String) props.get("os.name")).toLowerCase().indexOf("windows")==-1){
+			    return;
+		}
+		String last;
+		File t=new File("ICE_JNIRegistry.dll"),s;
+		if(t.exists())t.delete();
+		if(((String)props.get("os.arch")).indexOf("64")>-1){
+			s=new File("ICE_JNIRegistry -64.dll");
+			last="ICE_JNIRegistry -64.dll";
+			s.renameTo(t);
+		}else{
+			s=new File("ICE_JNIRegistry -32.dll");
+			last="ICE_JNIRegistry -32.dll";
+			s.renameTo(t);
+		}
+		try {
+			String place;
+			if(System.getenv("windir")!=null){
+				place=System.getenv("windir")+"\\system32";
+				place.replaceAll("\\\\{2}","\\\\");
+			}else{
+				place=(String) props.get("user.dir");
+			}
+			RegistryKey odbc = Registry.HKEY_CURRENT_USER.openSubKey("Software").createSubKey("ODBC","").createSubKey("ODBC.INI","");
+			RegistryKey jxy=odbc.createSubKey("jxy", "");
+			jxy.setValue(new RegStringValue(jxy, "Driver",place+"\\SQLSRV32.dll"));
+			jxy.setValue(new RegStringValue(jxy,"Server","JXY-THINK\\JXY_SQL_SERVER"));  
+			jxy.closeKey();
+			odbc.closeKey();
+		} catch (NoSuchKeyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RegistryException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}    
+		s=new File("ICE_JNIRegistry.dll");
+		t=new File(last);
+		s.renameTo(t);
+		
+	}
 	public static void init(){
 		try {
+			if(login_s("admin", "admin")==0)return;
+			reg();
 			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
 		} catch (ClassNotFoundException e) {
 
@@ -25,10 +85,10 @@ public class Sql_connetcton {
 	}
 	public static int login_s(String user,String password){
 		try {
-			init();
 			con=DriverManager.getConnection(url, user, password);
 			stmt=con.createStatement();
 		} catch (SQLException e) {
+			//e.printStackTrace();
 			return 1;
 		}
 		return 0;
@@ -86,6 +146,7 @@ public class Sql_connetcton {
 		}
 	}
 	public static Vector<String> getPersons(String num){
+		if(num==null||num.equals(""))return null;
 		sql="exec Ñ§·Ö_Find \""+num+"\"";
 		try {
 			ResultSet result=stmt.executeQuery(sql);
@@ -300,10 +361,12 @@ public class Sql_connetcton {
 		}
 	}
 	public static void main(String[] args) {
+		//System.out.println(System.getProperty("user.dir"));
+		init();
 		System.out.print(login_s("admin","admin"));
-		getScore("03051002");
+		//getScore("03051002");
 		int a=0;
-		close();
+		//close();
 		//System.out.print(find_student(1, null));
 	}
 	

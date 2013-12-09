@@ -30,6 +30,7 @@ public class Login extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					Sql_connetcton.init();
 					Login frame = new Login();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -117,6 +118,10 @@ public class Login extends JFrame {
 		});
 		button_1.setBounds(239, 188, 93, 23);
 		contentPane.add(button_1);
+		
+		JLabel label_3 = new JLabel("\u897F\u5B89\u7535\u5B50\u79D1\u6280\u5927\u5B66 \u8BA1\u7B97\u673A\u5B66\u9662");
+		label_3.setBounds(264, 246, 213, 15);
+		contentPane.add(label_3);
 		
 		Login.this.setResizable(false);
 		Login.this.setLocationRelativeTo(null);
