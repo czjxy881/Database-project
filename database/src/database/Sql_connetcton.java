@@ -231,11 +231,13 @@ public class Sql_connetcton {
 		try {
 			ResultSet result=stmt.executeQuery(sql);
 			Vector ans=new Vector();
+			int clen=result.getMetaData().getColumnCount();
 			while(result.next()){
-				for(int i=2;i<=3;i++)
+				for(int i=2;i<=clen;i++)
 					ans.add(result.getString(i));
 			}
 			if(ans.size()<1){
+				ans.add("");
 				ans.add("");
 				ans.add("");
 			}
@@ -364,7 +366,7 @@ public class Sql_connetcton {
 		//System.out.println(System.getProperty("user.dir"));
 		init();
 		System.out.print(login_s("admin","admin"));
-		//getScore("03051002");
+		getClassDetial("031111");
 		int a=0;
 		//close();
 		//System.out.print(find_student(1, null));

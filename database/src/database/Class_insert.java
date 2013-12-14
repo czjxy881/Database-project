@@ -19,12 +19,14 @@ import javax.swing.JComboBox;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class Class_insert extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField Classcode;
 	private JTextField teacher;
+	private JTextField date;
 
 	/**
 	 * Launch the application.
@@ -86,11 +88,26 @@ public class Class_insert extends JDialog {
 			comboBox.addItem(s);
 		}
 		contentPanel.add(comboBox);
-		
-		Vector detail =Sql_connetcton.getClassDetial(code);
+				date = new JTextField();
+		date.setBounds(193, 74, 87, 18);
+		contentPanel.add(date);
+		date.setColumns(10);
+		Vector<String> detail =Sql_connetcton.getClassDetial(code);
 		teacher.setText((String) detail.get(1));
+		date.setText(detail.get(2));
 		if((String)detail.get(0)!="")comboBox.setSelectedItem(detail.get(0));
 		Classcode.setEnabled(false);
+		
+		JLabel label = new JLabel("\u5165\u5B66\u5E74\u4EFD:");
+		label.setBounds(137, 76, 63, 15);
+		contentPanel.add(label);
+		
+
+		
+		JButton delete = new JButton("\u5220\u9664\u6B64\u73ED");
+		delete.setForeground(Color.RED);
+		delete.setBounds(23, 120, 93, 23);
+		contentPanel.add(delete);
 		
 		{
 			JPanel buttonPane = new JPanel();
@@ -104,6 +121,7 @@ public class Class_insert extends JDialog {
 						data.add(code);
 						data.add(ans.get(comboBox.getSelectedItem()));
 						data.add(teacher.getText());
+						data.add(date.getText());
 						if(Sql_connetcton.update(data,"班级")==true){
 							JOptionPane.showMessageDialog(getParent(), "修改完成！", "恭喜", JOptionPane.INFORMATION_MESSAGE);
 							Class_insert.this.dispose();
