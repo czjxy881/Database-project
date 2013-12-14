@@ -31,7 +31,7 @@ GO
 USE [学籍管理系统]
 GO
 
-/****** Object:  Table [dbo].[成绩]    Script Date: 12/09/2013 01:07:06 ******/
+/****** Object:  Table [dbo].[成绩]    Script Date: 12/15/2013 02:08:10 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -42,6 +42,7 @@ CREATE TABLE [dbo].[成绩](
 	[学号] [nchar](8) NOT NULL,
 	[课程号] [nchar](9) NOT NULL,
 	[成绩] [int] NULL,
+	[补考成绩] [int] NULL,
  CONSTRAINT [IX_成绩] UNIQUE NONCLUSTERED 
 (
 	[学号] ASC,
@@ -70,6 +71,14 @@ GO
 
 ALTER TABLE [dbo].[成绩] CHECK CONSTRAINT [CK_成绩]
 GO
+
+ALTER TABLE [dbo].[成绩]  WITH CHECK ADD  CONSTRAINT [CK_成绩_t] CHECK  (([成绩] IS NOT NULL AND [补考成绩]>=(0) AND [补考成绩]<=(100) OR [成绩] IS NULL AND [补考成绩] IS NULL))
+GO
+
+ALTER TABLE [dbo].[成绩] CHECK CONSTRAINT [CK_成绩_t]
+GO
+
+
 
 USE [学籍管理系统]
 GO
