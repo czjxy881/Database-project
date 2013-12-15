@@ -166,13 +166,43 @@ public class Sql_connetcton {
 			ResultSet result=stmt.executeQuery(sql);
 			Map<String, String> ans=new HashMap<String, String>();
 			while(result.next()){
-				ans.put(result.getString(1), result.getString(4));
+				String t=result.getString(1),s= result.getString(5);
+				if(s==null)s="NULL";
+				ans.put(t,s);
 			}
 			return ans;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	public static Map<String, String> getScoreBu(String code){
+		sql="exec ³É¼¨_Find \""+code+"\"";
+		try {
+			ResultSet result=stmt.executeQuery(sql);
+			Map<String, String> ans=new HashMap<String, String>();
+			while(result.next()){
+				String t=result.getString(1),s= result.getString(6);
+				if(s==null)s="NULL";
+				ans.put(t,s);
+			}
+			return ans;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public static String getCouresName(String code){
+		sql="exec ³É¼¨_Find \""+code+"\"";
+		try {
+			ResultSet result=stmt.executeQuery(sql);
+			if(result.next()){
+				return result.getString(2);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return "";
 	}
 	public static Vector getClassDetial(String code){
 		sql="exec °à¼¶_Find \""+code+"\"";
@@ -258,7 +288,7 @@ public class Sql_connetcton {
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 			return false;
 		}
 	}

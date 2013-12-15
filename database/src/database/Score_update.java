@@ -19,6 +19,7 @@ import javax.swing.JScrollPane;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class Score_update extends JFrame {
 
@@ -26,7 +27,7 @@ public class Score_update extends JFrame {
 	private JTextField code;
 	private JLabel name1;
 	private JTable table;
-	private Map<String, String> coures=null,score;
+	private Map<String, String> coures=null,score,scorebu;
 	private String cc;
 	/**
 	 * Launch the application.
@@ -44,7 +45,7 @@ public class Score_update extends JFrame {
 			}
 		});
 	}
-	private String[] name=new String[]{"课程号","课程名","成绩"};
+	private String[] name=new String[]{"课程号","课程名","成绩","补考成绩"};
 	private void refresh(){ 
 		if(coures==null) coures=Sql_connetcton.getCoures(); //课表Map
 		cc=code.getText();
@@ -55,7 +56,7 @@ public class Score_update extends JFrame {
 		}
 		name1.setText((String) detail.get(1));
 		score=Sql_connetcton.getScore(cc); //成绩Map
-		
+		scorebu=Sql_connetcton.getScoreBu(cc);
 		Vector<Vector> ans=new Vector<Vector>();
 		Vector<String> names=new Vector<String>();
 		for(String s:coures.keySet()){
@@ -64,8 +65,10 @@ public class Score_update extends JFrame {
 			temp.add(coures.get(s));
 			if(score.containsKey(s)){
 				temp.add(score.get(s));
+				temp.add(scorebu.get(s));
 			}
 			else{
+				temp.add("NULL");
 				temp.add("NULL");
 			}
 			ans.add(temp);
@@ -73,7 +76,7 @@ public class Score_update extends JFrame {
 		for(String s:name)names.add(s);
 		TableModel tableModle=new DefaultTableModel(ans, names){
 			public boolean isCellEditable(int row, int column){
-				if(column==2)return true;
+				if(column>=2)return true;
                 return false;}//表格不允许被编辑
 		};
 		table.setModel(tableModle);
@@ -82,7 +85,7 @@ public class Score_update extends JFrame {
 	 * Create the frame.
 	 */
 	public Score_update() {
-		setTitle("\u5B66\u751F\u6210\u7EE9\u5F55\u5165");
+		setTitle("\u5B66\u751F\u6210\u7EE9\u5F55\u5165(\u6309\u5B66\u53F7)");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -130,14 +133,8 @@ public class Score_update extends JFrame {
 					int suc=0,bad=0;
 					for(int i=0;i<rows;i++){
 						Vector s=(Vector) data.elementAt(i);
-						if(!s.get(2).equals("NULL")&&
-								(!score.containsKey(s.get(0))||!s.get(2).equals(score.get(s.get(0))))){
-							s.remove(1);
-							s.add(0,cc);
-							if(Sql_connetcton.update(s, "成绩"))suc++;
-							else bad++;
-						}
-						else if(score.containsKey(s.get(0))&&s.get(2).equals("NULL")){
+						if(score.containsKey(s.get(0))&&s.get(2).equals("-1")){
+							s.remove(3);
 							s.remove(1);
 							s.remove(1);
 							s.add(0,cc);
@@ -145,6 +142,17 @@ public class Score_update extends JFrame {
 							else bad++;
 							
 						}
+						else if((!s.get(2).equals("NULL")&&
+								(!score.containsKey(s.get(0))||!s.get(2).equals(score.get(s.get(0)))))
+							||(!s.get(3).equals("NULL")&&
+								(!scorebu.containsKey(s.get(0))||!s.get(3).equals(scorebu.get(s.get(0)))))
+								){
+							s.remove(1);
+							s.add(0,cc);
+							if(Sql_connetcton.update(s, "成绩"))suc++;
+							else bad++;
+						}
+
 							
 					}
 					JOptionPane.showMessageDialog(getParent(), "修改完成,成功"+suc+"个,失败"+bad+"个！");
@@ -158,8 +166,13 @@ public class Score_update extends JFrame {
 		
 		table=new JTable();
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(10, 40, 414, 211);
+		scrollPane.setBounds(10, 50, 414, 211);
 		contentPane.add(scrollPane);
+		
+		JLabel label_2 = new JLabel("\u6210\u7EE9\u4E3A-1\u4EE3\u8868\u5220\u9664\u6B64\u6761\u8BB0\u5F55!");
+		label_2.setForeground(Color.RED);
+		label_2.setBounds(266, 35, 197, 15);
+		contentPane.add(label_2);
 		code.addActionListener(new ActionListener() {
 			
 			@Override
