@@ -29,7 +29,7 @@ public class Course_insert extends JFrame {
 	private JTextField textField_1;
 	private JCheckBox checkBox_2,checkBox_1,checkBox;
 	private Vector<Integer> order=new Vector<Integer>();
-	private final String[] name=new String[]{"课程号","课程名","学分"};
+	private final String[] name=new String[]{"课程号","课程名","学分","课程类型"};
 	private JPanel panel;
 	/**
 	 * Launch the application.
@@ -38,6 +38,7 @@ public class Course_insert extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					Sql_connetcton.login_s("admin", "admin");
 					Course_insert frame = new Course_insert();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -118,7 +119,7 @@ public class Course_insert extends JFrame {
 		contentPane.add(textField_1);
 		textField_1.setColumns(10);
 		 checkBox = new JCheckBox("\u8BFE\u7A0B\u53F7");
-		checkBox.setBounds(10, 59, 107, 23);
+		checkBox.setBounds(10, 59, 63, 23);
 		checkBox.addActionListener(checkBoxListener);
 		checkBox.addActionListener(new ActionListener() {
 			
@@ -196,16 +197,28 @@ public class Course_insert extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(new BorderLayout(0, 0));//保持边距，不然会超出显示区域
 		final JTable table = new JTable();
-				/*{
-					public boolean isCellEditable(int row, int column){
-	                             return false;}//表格不允许被编辑
-				};
-				*/
 
 		panel.removeAll();
 		JScrollPane sPane=new JScrollPane(table);
 		sPane.setAutoscrolls(true);
 		panel.add(sPane,BorderLayout.CENTER);
+		
+		JCheckBox kind = new JCheckBox("\u8BFE\u7A0B\u7C7B\u578B");
+		kind.setBounds(202, 59, 103, 23);
+		contentPane.add(kind);
+		kind.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(((JCheckBox)e.getSource()).isSelected()){
+					order.add(new Integer(3));
+				}else{
+					order.remove(new Integer(3));
+				}
+				
+			}
+		});
+		kind.addActionListener(checkBoxListener);
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				final Vector<Vector<String>> ans=
@@ -231,6 +244,9 @@ public class Course_insert extends JFrame {
 							return rowIndex+1;
 						}
 				        Vector rowVector = (Vector)dataVector.elementAt(rowIndex);
+				        if(columnIndex==4)
+				        	if(rowVector.elementAt(columnIndex-1)=="NULL")
+				        		setValueAt("必修", rowIndex, columnIndex-1);
 				        return rowVector.elementAt(columnIndex-1);
 					}
 					
