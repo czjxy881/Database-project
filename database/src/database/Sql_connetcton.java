@@ -9,77 +9,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Vector;
-
-import sun.misc.OSEnvironment;
-
-import com.ice.jni.registry.NoSuchKeyException;
-import com.ice.jni.registry.RegDWordValue;
-import com.ice.jni.registry.RegStringValue;
-import com.ice.jni.registry.Registry;
-import com.ice.jni.registry.RegistryException;
-import com.ice.jni.registry.RegistryKey;
-import com.ice.jni.registry.RegistryValue;
-import com.sun.corba.se.pept.transport.ContactInfo;
+import java.sql.*;
 
 
 public class Sql_connetcton {
-	private static String url="jdbc:odbc:jxy";
+	private static String ip= "local";
+	private static String url="jdbc:sqlserver://JXY-THINK;instanceName=JXY_SQL_SERVER;database=学籍管理系统";
 	private static Connection con=null;
 	private static String sql;
 	private static Statement stmt;
-	public static void reg(){ //注册odbc
-		Properties props = System.getProperties();  
-		props.get("os.name");
-		if(((String) props.get("os.name")).toLowerCase().indexOf("windows")==-1){
-			    return;
-		}
-		String last;
-		File t=new File("ICE_JNIRegistry.dll"),s;
-		if(t.exists())t.delete();
-		if(((String)props.get("os.arch")).indexOf("64")>-1){
-			s=new File("ICE_JNIRegistry -64.dll");
-			last="ICE_JNIRegistry -64.dll";
-			s.renameTo(t);
-		}else{
-			s=new File("ICE_JNIRegistry -32.dll");
-			last="ICE_JNIRegistry -32.dll";
-			s.renameTo(t);
-		}
-		try {
-			String place;
-			if(System.getenv("windir")!=null){
-				place=System.getenv("windir")+"\\system32";
-				place.replaceAll("\\\\{2}","\\\\");
-			}else{
-				place=(String) props.get("user.dir");
-			}
-			RegistryKey odbc = Registry.HKEY_CURRENT_USER.openSubKey("Software").createSubKey("ODBC","").createSubKey("ODBC.INI","");
-			RegistryKey jxy=odbc.createSubKey("jxy", "");
-			jxy.setValue(new RegStringValue(jxy, "Driver",place+"\\SQLSRV32.dll"));
-			jxy.setValue(new RegStringValue(jxy,"Server","JXY-THINK\\JXY_SQL_SERVER"));  
-			jxy.closeKey();
-			odbc.closeKey();
-		} catch (NoSuchKeyException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (RegistryException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}    
-		s=new File("ICE_JNIRegistry.dll");
-		t=new File(last);
-		s.renameTo(t);
-		
-	}
+
 	public static void init(){
 		try {
-			if(login_s("admin", "admin")==0)return;
-			reg();
-			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		} catch (ClassNotFoundException e) {
-
 			e.printStackTrace();
 		}
 	}
@@ -88,7 +32,7 @@ public class Sql_connetcton {
 			con=DriverManager.getConnection(url, user, password);
 			stmt=con.createStatement();
 		} catch (SQLException e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 			return 1;
 		}
 		return 0;
@@ -107,9 +51,10 @@ public class Sql_connetcton {
 		try{
 			result=stmt.executeQuery(sql);
 			int ind=0,i;
+			int clen=result.getMetaData().getColumnCount();
 			while(result.next()){
 				now=new String[5];
-				for(i=0;i<5;i++){
+				for(i=0;i<clen;i++){
 					now[i]=result.getString(i+1);
 					if(now[i]==null)now[i]="NULL";
 				}
@@ -130,9 +75,10 @@ public class Sql_connetcton {
 		try {
 			ResultSet result=stmt.executeQuery(sql);
 			Vector<Vector<String>> ans=new Vector<Vector<String>>();
+			int clen=result.getMetaData().getColumnCount();
 			while(result.next()){
 				Vector<String> s=new Vector<String>();
-				for(int i=1;i<=4;i++){
+				for(int i=1;i<=clen;i++){
 					s.add(result.getString(i));
 					if(s.lastElement()==null)s.set(i, "NULL");
 				}
@@ -150,9 +96,10 @@ public class Sql_connetcton {
 		sql="exec 学分_Find \""+num+"\"";
 		try {
 			ResultSet result=stmt.executeQuery(sql);
+			int clen=result.getMetaData().getColumnCount();
 			Vector<String> ans=new Vector<String>();
 			while(result.next()){
-				for(int i=1;i<=6;i++)
+				for(int i=1;i<=clen;i++)
 					ans.add(result.getString(i));
 			}
 			return ans;
@@ -167,10 +114,11 @@ public class Sql_connetcton {
 		try {
 			ResultSet result=stmt.executeQuery(sql);
 			Vector<Vector> ans=new Vector<Vector>();
+			int clen=result.getMetaData().getColumnCount();
 			while(result.next()){
 				Vector s=new Vector<String>();
 				s.add(false);
-				for(int i=1;i<=4;i++){
+				for(int i=1;i<=clen;i++){
 					s.add(result.getString(i));
 					if(s.lastElement()==null)s.set(i, "NULL");
 				}
@@ -253,9 +201,10 @@ public class Sql_connetcton {
 		try {
 			ResultSet result=stmt.executeQuery(sql);
 			Vector<Vector> ans=new Vector<Vector>();
+			int clen=result.getMetaData().getColumnCount();
 			while(result.next()){
 				Vector s=new Vector<String>();
-				for(int i=1;i<=4;i++){
+				for(int i=1;i<=clen;i++){
 					s.add(result.getString(i));
 				}
 				ans.add(s);
@@ -273,10 +222,11 @@ public class Sql_connetcton {
 			ResultSet result=stmt.executeQuery(sql);
 			Vector<Vector> ans=new Vector<Vector>();
 			int ind=1;
+			int clen=result.getMetaData().getColumnCount();
 			while(result.next()){
 				Vector s=new Vector<String>();
 				s.add(ind++);
-				for(int i=1;i<=2;i++){
+				for(int i=1;i<=clen;i++){
 					s.add(result.getString(i));
 				}
 				ans.add(s);
@@ -344,6 +294,15 @@ public class Sql_connetcton {
 			return false;
 		}
 	}
+	public static boolean delClass(String code){
+		sql="exec 班级_DEL \""+code+"\"";
+		try {
+			stmt.execute(sql);
+			return true;
+		} catch (SQLException e) {
+			return false;
+		}
+	}
 	public static void close(){
 		try {
 			if(stmt!=null)stmt.close();
@@ -366,7 +325,7 @@ public class Sql_connetcton {
 		//System.out.println(System.getProperty("user.dir"));
 		init();
 		System.out.print(login_s("admin","admin"));
-		getClassDetial("031111");
+		//getClassDetial("031111");
 		int a=0;
 		//close();
 		//System.out.print(find_student(1, null));
