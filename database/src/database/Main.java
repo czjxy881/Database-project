@@ -56,32 +56,14 @@ public class Main extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(0, 3, 0, 0));
 		
-		JButton button = new JButton("\u5BFC\u5165\u5B66\u751F\u4FE1\u606F");
+		JButton button = new JButton("\u5BFC\u5165\u6570\u636E");
 		contentPane.add(button);
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Student_insert si=new Student_insert();
-				si.setVisible(true);
+				Import im=new Import();
+				im.setVisible(true);
 			}
 		});
-		
-		JButton button_4 = new JButton("\u5BFC\u5165\u6210\u7EE9");
-		button_4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Score_insert si=new Score_insert();
-				si.setVisible(true);
-			}
-		});
-		contentPane.add(button_4);
-		
-		JButton button_3 = new JButton("\u5BFC\u5165\u8BFE\u7A0B");
-		button_3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Course_insert ci=new Course_insert();
-				ci.setVisible(true);
-			}
-		});
-		contentPane.add(button_3);
 		
 		JButton button_6 = new JButton("\u5F55\u5165\u5B66\u751F\u4FE1\u606F");
 		button_6.addActionListener(new ActionListener() {
@@ -92,7 +74,17 @@ public class Main extends JFrame {
 		});
 		contentPane.add(button_6);
 		
-		JButton button_5 = new JButton("\u5F55\u5165\u6210\u7EE9");
+		JButton button_8 = new JButton("\u73ED\u7EA7\u4FEE\u6539");
+		button_8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String s=JOptionPane.showInputDialog("°àºÅ:");
+				if(s==null||s.equals(""))return;
+				Class_insert ci=new Class_insert(s);
+				ci.setVisible(true);
+			}
+		});
+		
+		JButton button_5 = new JButton("\u5F55\u5165\u6210\u7EE9(\u6309\u5B66\u53F7)");
 		button_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Score_update su=new Score_update();
@@ -100,6 +92,10 @@ public class Main extends JFrame {
 			}
 		});
 		contentPane.add(button_5);
+		
+		JButton button_3 = new JButton("\u5F55\u5165\u6210\u7EE9(\u6309\u8BFE\u7A0B)");
+		contentPane.add(button_3);
+		contentPane.add(button_8);
 		
 		JButton button_1 = new JButton("\u67E5\u8BE2\u5B66\u751F\u4FE1\u606F");
 		contentPane.add(button_1);
@@ -113,26 +109,6 @@ public class Main extends JFrame {
 		});
 		contentPane.add(button_2);
 		
-		JButton button_8 = new JButton("\u73ED\u7EA7\u4FEE\u6539");
-		button_8.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String s=JOptionPane.showInputDialog("°àºÅ:");
-				if(s==null||s.equals(""))return;
-				Class_insert ci=new Class_insert(s);
-				ci.setVisible(true);
-			}
-		});
-		contentPane.add(button_8);
-		
-		JButton button_7 = new JButton("\u5C06\u88AB\u5F00\u9664\u5B66\u751F\u540D\u5355");
-		button_7.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Fire f=new Fire();
-				f.setVisible(true);
-			}
-		});
-		contentPane.add(button_7);
-		
 		JButton button_9 = new JButton("\u6CE8\u9500\u767B\u5F55");
 		button_9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -142,6 +118,18 @@ public class Main extends JFrame {
 				login.setVisible(true);
 			}
 		});
+		
+		JButton button_7 = new JButton("\u5C06\u88AB\u5F00\u9664\u5B66\u751F\u540D\u5355");
+		button_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Fire f=new Fire();
+				f.setVisible(true);
+			}
+		});
+		
+		JButton button_4 = new JButton("\u6559\u5B66\u8BA1\u5212");
+		contentPane.add(button_4);
+		contentPane.add(button_7);
 		contentPane.add(button_9);
 		
 		JPanel panel = new JPanel();

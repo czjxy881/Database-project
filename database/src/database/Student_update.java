@@ -318,11 +318,11 @@ public class Student_update extends JFrame {
 						else{
 							if(check_class(classcode.getText())==true){
 								if(Sql_connetcton.insert(data, "学生")==true){
-									JOptionPane.showMessageDialog(getParent(), "修改完成！", "恭喜", JOptionPane.INFORMATION_MESSAGE);
+									JOptionPane.showMessageDialog(getParent(), "录入完成！", "恭喜", JOptionPane.INFORMATION_MESSAGE);
 									clear();
 									refresh();
 								}else{
-									JOptionPane.showMessageDialog(getParent(), "修改失败！格式错误或有重复学号", "抱歉", JOptionPane.ERROR_MESSAGE);
+									JOptionPane.showMessageDialog(getParent(), "录入失败！格式错误或有重复学号", "抱歉", JOptionPane.ERROR_MESSAGE);
 								}
 							}else{
 								classcode.setText("");

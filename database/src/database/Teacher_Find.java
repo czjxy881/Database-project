@@ -108,7 +108,7 @@ public class Teacher_Find extends JFrame {
 		contentPane.add(label_1);
 		
 		name1 = new JLabel("");
-		name1.setBounds(192, 13, 54, 15);
+		name1.setBounds(192, 13, 80, 15);
 		contentPane.add(name1);
 		textField.addActionListener(new ActionListener() {
 			
