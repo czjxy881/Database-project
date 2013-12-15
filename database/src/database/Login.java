@@ -30,9 +30,10 @@ public class Login extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Sql_connetcton.init();
+					
 					Login frame = new Login();
 					frame.setVisible(true);
+					Sql_connetcton.init();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -83,6 +84,33 @@ public class Login extends JFrame {
 		contentPane.add(passwordField);
 		
 		final JButton button = new JButton("\u767B\u9646");
+		button.setBounds(100, 188, 93, 23);
+		contentPane.add(button);
+		JButton button_1 = new JButton("\u9000\u51FA");
+
+		button_1.setBounds(239, 188, 93, 23);
+		contentPane.add(button_1);
+		
+		JLabel label_3 = new JLabel("\u897F\u5B89\u7535\u5B50\u79D1\u6280\u5927\u5B66 \u8BA1\u7B97\u673A\u5B66\u9662");
+		label_3.setBounds(264, 246, 213, 15);
+		contentPane.add(label_3);
+		
+		Login.this.setResizable(false);
+		Login.this.setLocationRelativeTo(null);	
+		passwordField.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				button.doClick();
+				
+			}
+		});
+		
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String user=textField.getText();
@@ -98,32 +126,5 @@ public class Login extends JFrame {
 				}
 			}
 		});
-		button.setBounds(100, 188, 93, 23);
-		contentPane.add(button);
-		
-		passwordField.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				button.doClick();
-				
-			}
-		});
-		
-		JButton button_1 = new JButton("\u9000\u51FA");
-		button_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-		button_1.setBounds(239, 188, 93, 23);
-		contentPane.add(button_1);
-		
-		JLabel label_3 = new JLabel("\u897F\u5B89\u7535\u5B50\u79D1\u6280\u5927\u5B66 \u8BA1\u7B97\u673A\u5B66\u9662");
-		label_3.setBounds(264, 246, 213, 15);
-		contentPane.add(label_3);
-		
-		Login.this.setResizable(false);
-		Login.this.setLocationRelativeTo(null);
 	}
 }

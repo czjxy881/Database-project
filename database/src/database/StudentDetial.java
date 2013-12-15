@@ -7,9 +7,11 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.image.ColorModel;
 
 import javax.swing.JLabel;
 
@@ -42,7 +44,7 @@ public class StudentDetial extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	final String []name=new String[]{"课程号","课程名","学分","成绩"};
+	final String []name=new String[]{"课程号","课程名","课程类型","学分","成绩"};
 	public StudentDetial(String num) {
 		Vector<String> detail=Sql_connetcton.getPersons(num);
 		Vector<Vector<String>> ans=Sql_connetcton.getScoreDetail(num);
@@ -50,113 +52,137 @@ public class StudentDetial extends JDialog {
 		for(String s:name)names.add(s);
 		setTitle("\u5B66\u751F\u6210\u7EE9\u67E5\u770B");
 		setBounds(100, 100, 450, 300);
-		getContentPane().setLayout(new BorderLayout());
+		getContentPane().setLayout(null);
+		contentPanel.setBounds(0, 0, 444, 270);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		getContentPane().add(contentPanel);
 		contentPanel.setLayout(null);
 		{
 			JLabel label = new JLabel("\u59D3\u540D:");
-			label.setBounds(120, 8, 54, 15);
+			label.setBounds(120, 4, 54, 15);
 			contentPanel.add(label);
 		}
 		{
 			JLabel name = new JLabel(detail.get(1));
-			name.setBounds(158, 8, 70, 15);
+			name.setBounds(158, 4, 70, 15);
 			contentPanel.add(name);
 			
 		}
 		{
 			JLabel label = new JLabel("\u5B66\u53F7:");
-			label.setBounds(10, 8, 54, 15);
+			label.setBounds(10, 4, 54, 15);
 			contentPanel.add(label);
 		}
 		{
 			JLabel number = new JLabel(detail.get(0));
-			number.setBounds(40, 8, 70, 15);
+			number.setBounds(40, 4, 70, 15);
 			contentPanel.add(number);
 		}
 		{
 			JLabel label = new JLabel("\u6027\u522B:");
-			label.setBounds(252, 8, 54, 15);
+			label.setBounds(252, 4, 54, 15);
 			contentPanel.add(label);
 		}
 		{
 			JLabel sex = new JLabel(detail.get(2));
-			sex.setBounds(287, 8, 54, 15);
+			sex.setBounds(287,4, 54, 15);
 			contentPanel.add(sex);
 		}
 		{
-			JLabel label = new JLabel("\u5E73\u5747\u5206:");
-			label.setBounds(10, 28, 69, 15);
+			JLabel label = new JLabel("\u603B\u5E73\u5747\u5206:");
+			label.setBounds(10, 21, 69, 15);
 			contentPanel.add(label);
 		}
 		{
 			JLabel ave = new JLabel(detail.get(3));
-			ave.setBounds(56, 28, 54, 15);
+			ave.setBounds(65, 21, 54, 15);
 			contentPanel.add(ave);
 		}
 		{
-			JLabel label = new JLabel("\u5DF2\u5B8C\u6210\u5B66\u5206:");
-			label.setBounds(120, 28, 89, 15);
+			JLabel label = new JLabel("\u5FC5\u4FEE\u9650\u9009\u5E73\u5747\u5206:");
+			label.setBounds(120, 21, 100, 15);
 			contentPanel.add(label);
 		}
 		{
 			JLabel have = new JLabel(detail.get(4));
-			have.setBounds(188, 28, 54, 15);
+			have.setBounds(210, 21, 54, 15);
 			contentPanel.add(have);
 		}
 		{
-			JLabel label = new JLabel("\u672A\u5B8C\u6210\u5B66\u5206\uFF1A");
-			label.setBounds(252, 28, 89, 15);
+			JLabel label = new JLabel("\u603B\u5B66\u5206\uFF1A");
+			label.setBounds(10, 39, 54, 15);
 			contentPanel.add(label);
 		}
 		{
 			JLabel label = new JLabel(detail.get(5));
-			label.setBounds(321, 28, 54, 15);
+			label.setBounds(56, 39, 54, 15);
 			contentPanel.add(label);
 		}
 		{
 			JLabel label = new JLabel("\u5371\u9669!");
 			label.setForeground(new Color(255, 0, 0));
 			label.setFont(new Font("宋体", Font.BOLD, 25));
-			label.setBounds(355, 8, 69, 40);
+			label.setBounds(365, 4, 69, 40);
 			contentPanel.add(label);
-			if(Integer.valueOf(detail.get(5))>=28)label.setVisible(true);
+			if(Integer.valueOf(detail.get(7))>=28)label.setVisible(true);
 			else label.setVisible(false);
 		}
+		{
+			JLabel label = new JLabel("\u6210\u7EE9\u8BE6\u60C5:");
+			label.setBounds(10, 56, 69, 15);
+			contentPanel.add(label);
+		}
+		
+		JLabel label = new JLabel("\u5FC5\u4FEE\u9650\u9009\u5B66\u5206:");
+		label.setBounds(120, 39, 96, 15);
+		contentPanel.add(label);
+		
+		JLabel bi = new JLabel(detail.get(6));
+		bi.setBounds(198, 39, 54, 15);
+		contentPanel.add(bi);
+		
+		JLabel lblNewLabel = new JLabel("\u672A\u5B8C\u6210\u5FC5\u9650\u5B66\u5206:");
+		lblNewLabel.setBounds(260, 39, 120, 15);
+		contentPanel.add(lblNewLabel);
+		
+		JLabel none = new JLabel(detail.get(7));
+		none.setBounds(350, 39, 54, 15);
+		contentPanel.add(none);
 		{
 			table = new JTable(ans,names){
 				public boolean isCellEditable(int row, int column){
                     return false;}
+				
 			};
+			DefaultTableCellRenderer dtc = new DefaultTableCellRenderer(){
+				public Color getForeground(){
+					try{
+					if(getText()!=""&&Integer.valueOf(getText())<60)
+						return java.awt.Color.red;
+					else return super.getForeground();
+					}catch(Exception e){
+						return super.getForeground();
+					}
+				}
+			};
+			table.getColumnModel().getColumn(4).setCellRenderer(dtc);
 			JScrollPane scrollPane = new JScrollPane(table);
-			scrollPane.setBounds(10, 62, 414, 166);
+			scrollPane.setBounds(10, 70, 426, 172);
 			contentPanel.add(scrollPane);
 		}
 		{
-			JLabel label = new JLabel("\u6210\u7EE9\u8BE6\u60C5:");
-			label.setBounds(10, 45, 69, 15);
-			contentPanel.add(label);
-		}
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("OK");
-				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						StudentDetial.this.dispose();
-					}
-				});
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
+			JButton okButton = new JButton("OK");
+			okButton.setBounds(389, 245, 45, 23);
+			contentPanel.add(okButton);
+			okButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					StudentDetial.this.dispose();
+				}
+			});
+			okButton.setActionCommand("OK");
+			getRootPane().setDefaultButton(okButton);
 		}
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 	}
-	
-
 }
