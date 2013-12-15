@@ -105,6 +105,17 @@ public class Class_insert extends JDialog {
 
 		
 		JButton delete = new JButton("\u5220\u9664\u6B64\u73ED");
+		delete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(Sql_connetcton.delClass(code)==true){
+					JOptionPane.showMessageDialog(getParent(), "É¾³ýÍê³É£¡", "¹§Ï²", JOptionPane.INFORMATION_MESSAGE);
+					Class_insert.this.dispose();
+				}
+				else{
+					JOptionPane.showMessageDialog(getParent(), "É¾³ýÊ§°Ü£¡", "´íÎó", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		delete.setForeground(Color.RED);
 		delete.setBounds(23, 120, 93, 23);
 		contentPanel.add(delete);
