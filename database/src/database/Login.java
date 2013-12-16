@@ -67,9 +67,9 @@ public class Login extends JFrame {
 		lbljxy.setBounds(124, 0, 185, 61);
 		contentPane.add(lbljxy);
 		
-		JLabel label_2 = new JLabel("03111002-\u8D3E\u65B0\u79B9");
+		JLabel label_2 = new JLabel("<html><body>\r\n03111002-\u8D3E\u65B0\u79B9</body></html>");
 		label_2.setFont(new Font("¿¬Ìå", Font.PLAIN, 14));
-		label_2.setBounds(299, 46, 105, 15);
+		label_2.setBounds(303, 36, 117, 48);
 		contentPane.add(label_2);
 		
 		textField = new JTextField();

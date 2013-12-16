@@ -91,6 +91,27 @@ public class Sql_connetcton {
 			return null;
 		}
 	}
+	public static Vector<Vector<String>> getScoreDetail2(String num){
+		sql="exec 成绩_Find2 \""+num+"\"";
+		try {
+			ResultSet result=stmt.executeQuery(sql);
+			Vector<Vector<String>> ans=new Vector<Vector<String>>();
+			int clen=result.getMetaData().getColumnCount();
+			while(result.next()){
+				Vector<String> s=new Vector<String>();
+				for(int i=1;i<=clen;i++){
+					s.add(result.getString(i));
+					if(s.lastElement()==null)s.set(i-1, "NULL");
+				}
+				ans.add(s);
+			}
+			return ans;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
 	public static Vector<Vector<String>> getScoreClass(Vector data){
 		sql="exec 成绩课程_FIND";
 		sql=add_sql(sql, data);
@@ -441,7 +462,28 @@ public class Sql_connetcton {
 			return null;
 		}
 	}
-	
+	public static Vector<Vector> getPlanDetail2(Vector data){
+		sql="exec 教学计划_Find2";
+		sql=add_sql(sql, data);
+		try {
+			ResultSet result=stmt.executeQuery(sql);
+			Vector<Vector> ans=new Vector<Vector>();
+			while(result.next()){
+				Vector s=new Vector<String>();
+				s.add(false);
+				int clen=result.getMetaData().getColumnCount();
+				for(int i=1;i<=clen;i++){
+					s.add(result.getString(i));
+				}
+				ans.add(s);
+			}
+			return ans;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
 	public static void main(String[] args) {
 		//System.out.println(System.getProperty("user.dir"));
 		init();

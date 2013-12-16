@@ -147,7 +147,7 @@ public class Main extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel);
 		
-		JLabel lblNewLabel = new JLabel("<html><body><center>\r\n\u8D3E\u65B0\u79B9<br>\r\n\u897F\u5B89\u7535\u5B50\u79D1\u6280\u5927\u5B66<br>\r\n03111002<br></center></body></html>");
+		JLabel lblNewLabel = new JLabel("<html><body><center>\r\n\u8D3E\u65B0\u79B9<br>\r\n\u897F\u5B89\u7535\u5B50\u79D1\u6280\u5927\u5B66<br>\r\n03111002</center></body></html>");
 		panel.add(lblNewLabel);
 
 		

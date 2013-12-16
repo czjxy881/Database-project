@@ -44,10 +44,10 @@ public class StudentDetial extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	final String []name=new String[]{"课程号","课程名","课程类型","学分","成绩"};
+	final String []name=new String[]{"专业名","学期","课程号","课程名","课程类型","学分","成绩"};
 	public StudentDetial(String num) {
 		Vector<String> detail=Sql_connetcton.getPersons(num);
-		Vector<Vector<String>> ans=Sql_connetcton.getScoreDetail(num);
+		Vector<Vector<String>> ans=Sql_connetcton.getScoreDetail2(num);
 		Vector<String> names=new Vector<String>();
 		for(String s:name)names.add(s);
 		setTitle("\u5B66\u751F\u6210\u7EE9\u67E5\u770B");
@@ -165,7 +165,7 @@ public class StudentDetial extends JDialog {
 					}
 				}
 			};
-			table.getColumnModel().getColumn(4).setCellRenderer(dtc);
+			table.getColumnModel().getColumn(6).setCellRenderer(dtc);
 			JScrollPane scrollPane = new JScrollPane(table);
 			scrollPane.setBounds(10, 70, 426, 172);
 			contentPanel.add(scrollPane);

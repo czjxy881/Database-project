@@ -77,7 +77,8 @@ public class Teach_plan extends JFrame {
 		for(String s:Coures.keySet()){
 			add.add(s);
 		}
-		for(Vector s:ans){
+		Vector<Vector> temp=Sql_connetcton.getPlanDetail2(data);;
+		for(Vector s:temp){
 			if(add.contains(s.get(2)))
 				add.remove(s.get(2));
 		}
@@ -124,7 +125,7 @@ public class Teach_plan extends JFrame {
 		grade_combo = new JComboBox();
 		grade_combo.setBounds(41, 8, 66, 21);
 		contentPane.add(grade_combo);
-		for(int i=1;i<8;i++){
+		for(int i=1;i<=8;i++){
 			grade_combo.addItem(i);
 		}
 		JLabel label_1 = new JLabel("\u4E13\u4E1A:");
