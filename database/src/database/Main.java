@@ -94,6 +94,12 @@ public class Main extends JFrame {
 		contentPane.add(button_5);
 		
 		JButton button_3 = new JButton("\u5F55\u5165\u6210\u7EE9(\u6309\u8BFE\u7A0B)");
+		button_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Score_insert_class si=new Score_insert_class();
+				si.setVisible(true);
+			}
+		});
 		contentPane.add(button_3);
 		contentPane.add(button_8);
 		

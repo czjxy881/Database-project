@@ -91,6 +91,28 @@ public class Sql_connetcton {
 			return null;
 		}
 	}
+	public static Vector<Vector<String>> getScoreClass(Vector data){
+		sql="exec 成绩课程_FIND";
+		sql=add_sql(sql, data);
+		try {
+			ResultSet result=stmt.executeQuery(sql);
+			Vector<Vector<String>> ans=new Vector<Vector<String>>();
+			int clen=result.getMetaData().getColumnCount();
+			while(result.next()){
+				Vector<String> s=new Vector<String>();
+				for(int i=1;i<=clen;i++){
+					s.add(result.getString(i));
+					if(s.lastElement()==null)s.set(i-1, "NULL");
+				}
+				ans.add(s);
+			}
+			return ans;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
 	public static Vector<String> getPersons(String num){
 		if(num==null||num.equals(""))return null;
 		sql="exec 学分_Find \""+num+"\"";
@@ -193,7 +215,7 @@ public class Sql_connetcton {
 		}
 	}
 	public static String getCouresName(String code){
-		sql="exec 成绩_Find \""+code+"\"";
+		sql="exec 课程_Find \""+code+"\"";
 		try {
 			ResultSet result=stmt.executeQuery(sql);
 			if(result.next()){
@@ -342,8 +364,7 @@ public class Sql_connetcton {
 		}
 	}
 	public static boolean Do(String sql1){
-		try {
-			
+		try {		
 			stmt.execute(sql1);
 			return true;
 		} catch (SQLException e) {
