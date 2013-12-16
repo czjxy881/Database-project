@@ -134,7 +134,12 @@ public class Main extends JFrame {
 		});
 		
 		JButton button_4 = new JButton("\u6559\u5B66\u8BA1\u5212");
-		button_4.setEnabled(false);
+		button_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Teach_plan tp=new Teach_plan();
+				tp.setVisible(true);
+			}
+		});
 		contentPane.add(button_4);
 		contentPane.add(button_7);
 		contentPane.add(button_9);

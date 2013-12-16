@@ -181,6 +181,21 @@ public class Sql_connetcton {
 			return null;
 		}
 	}
+	public static Map<String, String> getCouresByName(){
+		sql="exec 课程_Find";
+		try {
+			ResultSet result=stmt.executeQuery(sql);
+			Map<String, String> ans=new HashMap<String, String>();
+			while(result.next()){
+				String t=result.getString(1);
+				ans.put(result.getString(2), t);
+			}
+			return ans;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	public static Map<String, String> getScore(String code){
 		sql="exec 成绩_Find \""+code+"\"";
 		try {
@@ -335,6 +350,17 @@ public class Sql_connetcton {
 			return false;
 		}
 	}
+	public static boolean delPlan(Vector<String> data){
+		sql="exec 教学计划_DEL ";
+		sql=add_sql(sql, data);
+		try {
+			stmt.execute(sql);
+			return true;
+		} catch (SQLException e) {
+			//e.printStackTrace();
+			return false;
+		}
+	}
 	public static boolean delStudent(String code){
 		sql="exec 学生_DEL \""+code+"\"";
 		try {
@@ -371,6 +397,51 @@ public class Sql_connetcton {
 			return false;
 		}
 	}
+	public static Vector<String> getPlanGen(Vector data){
+		sql="exec 教学计划学分_Find ";
+		sql=add_sql(sql, data);
+		Vector<String> ans=new Vector<String>();
+		try {
+			ResultSet result=stmt.executeQuery(sql);
+			while(result.next()){
+				for(int i=1;i<=3;i++){
+					ans.add(result.getString(i));
+				}
+			}
+			if(ans.size()<1){
+				ans.add("0");ans.add("0");ans.add("0");
+			}
+			return ans;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			ans.clear();
+			ans.add("0");ans.add("0");ans.add("0");
+			return null;
+		}
+	}
+	public static Vector<Vector> getPlanDetail(Vector data){
+		sql="exec 教学计划_Find";
+		sql=add_sql(sql, data);
+		try {
+			ResultSet result=stmt.executeQuery(sql);
+			Vector<Vector> ans=new Vector<Vector>();
+			while(result.next()){
+				Vector s=new Vector<String>();
+				s.add(false);
+				int clen=result.getMetaData().getColumnCount();
+				for(int i=1;i<=clen;i++){
+					s.add(result.getString(i));
+				}
+				ans.add(s);
+			}
+			return ans;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	public static void main(String[] args) {
 		//System.out.println(System.getProperty("user.dir"));
 		init();

@@ -236,7 +236,7 @@ public class Student_update extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int ans=JOptionPane.showConfirmDialog(getParent(), "È·¶¨É¾³ý£¿", "¾¯¸æ", JOptionPane.YES_NO_OPTION);
 				if(ans==0){
-					if(check_class(textField_2.getText())==true){
+					{
 						DefaultTableModel tableModel=(DefaultTableModel) table.getModel();
 						Vector data=tableModel.getDataVector();
 						int rows=tableModel.getRowCount();int suc=0,bad=0;
