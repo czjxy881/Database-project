@@ -42,7 +42,7 @@ public class Fire extends JDialog {
 		}
 	}
 	private JTable table;
-	private String[] name=new String[]{"学号","姓名","未完成学分","平均分"};
+	private String[] name=new String[]{"学号","姓名","未完成必修学分","平均分"};
 	private void refresh(){
 		
 		Vector<Vector> ans=Sql_connetcton.kill(Integer.valueOf(textField.getText())-Integer.valueOf(textField_1.getText()));

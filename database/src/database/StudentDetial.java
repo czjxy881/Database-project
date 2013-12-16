@@ -105,7 +105,7 @@ public class StudentDetial extends JDialog {
 		}
 		{
 			JLabel have = new JLabel(detail.get(4));
-			have.setBounds(210, 21, 54, 15);
+			have.setBounds(214, 21, 54, 15);
 			contentPanel.add(have);
 		}
 		{
@@ -124,7 +124,7 @@ public class StudentDetial extends JDialog {
 			label.setFont(new Font("ËÎÌו", Font.BOLD, 25));
 			label.setBounds(365, 4, 69, 40);
 			contentPanel.add(label);
-			if(Integer.valueOf(detail.get(7))>=28)label.setVisible(true);
+			if(Integer.valueOf(detail.get(8))>=25)label.setVisible(true);
 			else label.setVisible(false);
 		}
 		{
@@ -138,15 +138,15 @@ public class StudentDetial extends JDialog {
 		contentPanel.add(label);
 		
 		JLabel bi = new JLabel(detail.get(6));
-		bi.setBounds(198, 39, 54, 15);
+		bi.setBounds(201, 39, 54, 15);
 		contentPanel.add(bi);
 		
 		JLabel lblNewLabel = new JLabel("\u672A\u5B8C\u6210\u5FC5\u9650\u5B66\u5206:");
 		lblNewLabel.setBounds(260, 39, 120, 15);
 		contentPanel.add(lblNewLabel);
 		
-		JLabel none = new JLabel(detail.get(7));
-		none.setBounds(350, 39, 54, 15);
+		JLabel none = new JLabel(detail.get(8));
+		none.setBounds(354, 39, 54, 15);
 		contentPanel.add(none);
 		{
 			table = new JTable(ans,names){
@@ -172,7 +172,7 @@ public class StudentDetial extends JDialog {
 		}
 		{
 			JButton okButton = new JButton("OK");
-			okButton.setBounds(389, 245, 45, 23);
+			okButton.setBounds(365, 245, 69, 23);
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {

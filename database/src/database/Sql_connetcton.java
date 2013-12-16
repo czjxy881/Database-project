@@ -80,7 +80,7 @@ public class Sql_connetcton {
 				Vector<String> s=new Vector<String>();
 				for(int i=1;i<=clen;i++){
 					s.add(result.getString(i));
-					if(s.lastElement()==null)s.set(i, "NULL");
+					if(s.lastElement()==null)s.set(i-1, "NULL");
 				}
 				ans.add(s);
 			}
@@ -136,11 +136,10 @@ public class Sql_connetcton {
 		try {
 			ResultSet result=stmt.executeQuery(sql);
 			Vector<Vector> ans=new Vector<Vector>();
-			int clen=result.getMetaData().getColumnCount();
 			while(result.next()){
 				Vector s=new Vector<String>();
 				s.add(false);
-				for(int i=1;i<=clen;i++){
+				for(int i=1;i<=4;i++){
 					s.add(result.getString(i));
 					if(s.lastElement()==null)s.set(i, "NULL");
 				}

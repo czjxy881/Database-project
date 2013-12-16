@@ -34,7 +34,7 @@ public class Class_insert extends JDialog {
 	public static void main(String[] args) {
 		try {
 			Sql_connetcton.login_s("admin","admin");
-			Class_insert dialog = new Class_insert("031111");
+			Class_insert dialog = new Class_insert("031112");
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -88,14 +88,14 @@ public class Class_insert extends JDialog {
 			comboBox.addItem(s);
 		}
 		contentPanel.add(comboBox);
-				date = new JTextField();
+		date = new JTextField();
 		date.setBounds(193, 74, 87, 18);
 		contentPanel.add(date);
 		date.setColumns(10);
 		Vector<String> detail =Sql_connetcton.getClassDetial(code);
 		teacher.setText((String) detail.get(1));
 		date.setText(detail.get(2));
-		if((String)detail.get(0)!="")comboBox.setSelectedItem(detail.get(0));
+		if(!detail.get(0).equals(""))comboBox.setSelectedItem(detail.get(0));
 		Classcode.setEnabled(false);
 		
 		JLabel label = new JLabel("\u5165\u5B66\u5E74\u4EFD:");
