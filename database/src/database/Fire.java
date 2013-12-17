@@ -28,6 +28,7 @@ public class Fire extends JFrame {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField bi_text;
 	private JTextField xuan_text;
+	private JLabel num;
 
 	/**
 	 * Launch the application.
@@ -58,6 +59,7 @@ public class Fire extends JFrame {
 			Res.add(Sql_connetcton.killDetail(data));
 			
 		}
+		num.setText(String.valueOf(ans.size())+"»À");
 		Vector<String> names=new Vector<String>();
 		for(String s:name)names.add(s);
 		TableModel tableModle=new DefaultTableModel(ans, names){
@@ -190,7 +192,7 @@ public class Fire extends JFrame {
 		contentPanel.add(button);
 		table=new JTable();
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(10, 35, 414, 185);
+		scrollPane.setBounds(10, 35, 414, 193);
 		contentPanel.add(scrollPane);
 		
 		JLabel label_2 = new JLabel("\u5B66\u671F\u5FC5\u4FEE\u5E95\u7EBF:");
@@ -220,23 +222,27 @@ public class Fire extends JFrame {
 		qi_text.setColumns(10);
 		qi_text.setBounds(311, 6, 25, 21);
 		contentPanel.add(qi_text);
-		refresh();
 		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("OK");
-				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						dispose();
-					}
-				});
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
+			JButton okButton = new JButton("OK");
+			okButton.setBounds(367, 238, 67, 23);
+			contentPanel.add(okButton);
+			okButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispose();
+				}
+			});
+			okButton.setActionCommand("OK");
+			getRootPane().setDefaultButton(okButton);
 		}
+		
+		JLabel label_3 = new JLabel("\u603B\u4EBA\u6570:");
+		label_3.setBounds(20, 242, 54, 15);
+		contentPanel.add(label_3);
+		
+		num = new JLabel("");
+		num.setBounds(65, 242, 54, 15);
+		contentPanel.add(num);
+		refresh();
 		this.setResizable(false);//æ”÷–
 		this.setLocationRelativeTo(null);
 	}

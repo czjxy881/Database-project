@@ -66,7 +66,7 @@ public class Main extends JFrame {
 		});
 		
 		JButton button_6 = new JButton("\u5F55\u5165\u5B66\u751F\u4FE1\u606F");
-		button_6.addActionListener(new ActionListener() {
+		button_6.addActionListener(new ActionListener() {  
 			public void actionPerformed(ActionEvent e) {
 				Student_update su=new Student_update();
 				su.setVisible(true);

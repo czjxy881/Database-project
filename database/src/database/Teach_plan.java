@@ -90,6 +90,10 @@ public class Teach_plan extends JFrame {
 		add_button.setEnabled(true);
 		del_button.setEnabled(true);
 		courese_combo.setEnabled(true);
+		if(add.size()<1){
+			courese_combo.setEnabled(false);
+			add_button.setEnabled(false);
+		}
 		Major_combo.setEnabled(false);
 		grade_combo.setEnabled(false);
 		query_button.setEnabled(false);
