@@ -84,16 +84,16 @@ public class Login extends JFrame {
 		contentPane.add(passwordField);
 		
 		final JButton button = new JButton("\u767B\u9646");
-		button.setBounds(100, 188, 93, 23);
+		button.setBounds(83, 186, 110, 40);
 		contentPane.add(button);
 		JButton button_1 = new JButton("\u9000\u51FA");
 
-		button_1.setBounds(239, 188, 93, 23);
+		button_1.setBounds(239, 186, 110, 40);
 		contentPane.add(button_1);
 		
-		JLabel label_3 = new JLabel("\u897F\u5B89\u7535\u5B50\u79D1\u6280\u5927\u5B66 \u8BA1\u7B97\u673A\u5B66\u9662");
-		label_3.setBounds(264, 246, 213, 15);
-		contentPane.add(label_3);
+		JLabel lblCopyrightc = new JLabel("Copyright (C) 2013 \u8D3E\u65B0\u79B9 \u897F\u5B89\u7535\u5B50\u79D1\u6280\u5927\u5B66 \u8BA1\u7B97\u673A\u5B66\u9662");
+		lblCopyrightc.setBounds(63, 246, 351, 15);
+		contentPane.add(lblCopyrightc);
 		
 		Login.this.setResizable(false);
 		Login.this.setLocationRelativeTo(null);	

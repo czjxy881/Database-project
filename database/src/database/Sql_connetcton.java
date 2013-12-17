@@ -1,5 +1,11 @@
 package database;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -14,18 +20,51 @@ import java.sql.*;
 
 
 public class Sql_connetcton {
-	private static String ip= "local";
-	private static String url="jdbc:sqlserver://JXY-THINK;instanceName=JXY_SQL_SERVER;database=学籍管理系统";
+	private static String url,ip;
 	private static Connection con=null;
 	private static String sql;
 	private static Statement stmt;
-
+	static boolean can(String ip){ //判断ip地址能否ping通
+		Runtime runtime = Runtime.getRuntime(); // 获取当前程序的运行进对象
+		  Process process = null; // 声明处理类对象
+		  String line = null; // 返回行信息
+		  InputStream is = null; // 输入流
+		  InputStreamReader isr = null; // 字节流
+		  BufferedReader br = null;
+		  boolean res = false;// 结果
+		  try {
+		   process = runtime.exec("ping " + ip); // PING
+		   is = process.getInputStream(); // 实例化输入流
+		   isr = new InputStreamReader(is);// 把输入流转换成字节流
+		   br = new BufferedReader(isr);// 从字节中读取文本
+		   while ((line = br.readLine()) != null) {
+		    if (line.contains("TTL")) {
+		     res = true;
+		     break;
+		    }
+		   }
+		   is.close();
+		   isr.close();
+		   br.close();
+		   return res;
+		  } catch (IOException e) {
+		   System.out.println(e);
+		   runtime.exit(1);
+		   return false;
+		  }
+	}
 	public static void init(){
 		try {
+			if(can("115.155.37.124")){
+				ip="115.155.37.124";
+			}else{
+				ip="JXY-THINK";
+			}
+			url="jdbc:sqlserver://"+ip+";instanceName=JXY_SQL_SERVER;database=学籍管理系统";
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		}
+		} 
 	}
 	public static int login_s(String user,String password){
 		try {

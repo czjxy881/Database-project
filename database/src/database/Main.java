@@ -14,13 +14,18 @@ import java.awt.event.ActionEvent;
 
 
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+
 import javax.swing.JLabel;
 import javax.swing.JEditorPane;
 import javax.swing.JTextPane;
 import javax.swing.DropMode;
+
 import java.awt.Color;
+
 import javax.swing.UIManager;
 
 public class Main extends JFrame {
@@ -55,7 +60,7 @@ public class Main extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(0, 3, 0, 0));
-		
+		final GPL g=new GPL();
 		JButton button = new JButton("\u5BFC\u5165\u6570\u636E");
 		contentPane.add(button);
 		button.addActionListener(new ActionListener() {
@@ -147,7 +152,39 @@ public class Main extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel);
 		
-		JLabel lblNewLabel = new JLabel("<html><body><center>\r\n\u8D3E\u65B0\u79B9<br>\r\n\u897F\u5B89\u7535\u5B50\u79D1\u6280\u5927\u5B66<br>\r\n03111002</center></body></html>");
+		JLabel lblNewLabel = new JLabel("<html><body><center>\r\nCopyright (C) 2013<br>\r\n\u8D3E\u65B0\u79B9<br>\r\n\u897F\u5B89\u7535\u5B50\u79D1\u6280\u5927\u5B66<br>\r\n03111002</center></body></html>");
+		lblNewLabel.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				g.setVisible(true);
+				
+			}
+		});
 		panel.add(lblNewLabel);
 
 		
