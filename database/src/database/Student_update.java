@@ -25,9 +25,8 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JComboBox;
 
-import org.eclipse.wb.swing.FocusTraversalOnArray;
-
 import java.awt.Component;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 public class Student_update extends JFrame {
 
@@ -338,6 +337,6 @@ public class Student_update extends JFrame {
 		this.setResizable(false);//æ”÷–
 		this.setLocationRelativeTo(null);
 		//num.setn(Name);
-			setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{ classcode,num,  Name, Sex,Brith,button,button_2,textField_2, button_1, btnNewButton,table}));
+		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{ classcode,num,  Name, Sex,Brith,button,button_2,textField_2, button_1, btnNewButton,table}));
 	}
 }

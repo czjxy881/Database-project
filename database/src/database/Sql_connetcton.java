@@ -283,8 +283,29 @@ public class Sql_connetcton {
 		}
 	}
 	
-	public static Vector<Vector> kill(int key){
-		sql="exec 开除  \""+String.valueOf(key)+"\"";
+	public static Vector<Vector> kill(Vector data){
+		sql="exec 开除  ";
+		sql=add_sql(sql, data);
+		try {
+			ResultSet result=stmt.executeQuery(sql);
+			Vector<Vector> ans=new Vector<Vector>();
+			int clen=result.getMetaData().getColumnCount();
+			while(result.next()){
+				Vector s=new Vector<String>();
+				for(int i=1;i<=clen;i++){
+					s.add(result.getString(i));
+				}
+				ans.add(s);
+			}
+			return ans;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public static Vector<Vector> killDetail(Vector data){
+		sql="exec 开除详情  ";
+		sql=add_sql(sql, data);
 		try {
 			ResultSet result=stmt.executeQuery(sql);
 			Vector<Vector> ans=new Vector<Vector>();

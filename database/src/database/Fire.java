@@ -10,6 +10,7 @@ import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
@@ -22,11 +23,11 @@ import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Fire extends JDialog {
+public class Fire extends JFrame {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField bi_text;
+	private JTextField xuan_text;
 
 	/**
 	 * Launch the application.
@@ -35,7 +36,7 @@ public class Fire extends JDialog {
 		try {
 			Sql_connetcton.login_s("admin","admin");
 			Fire dialog = new Fire();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -43,9 +44,20 @@ public class Fire extends JDialog {
 	}
 	private JTable table;
 	private String[] name=new String[]{"学号","姓名","未完成必修学分","平均分"};
+	private JTextField qi_text;
 	private void refresh(){
-		
-		Vector<Vector> ans=Sql_connetcton.kill(Integer.valueOf(textField.getText())-Integer.valueOf(textField_1.getText()));
+		Vector data=new Vector<>();
+		data.add(bi_text.getText());
+		data.add(xuan_text.getText());
+		data.add(qi_text.getText());
+		Vector<Vector> ans=Sql_connetcton.kill(data);
+		final Vector<Vector<Vector>> Res=new Vector<>(ans.size());
+		data.add("");
+		for(Vector s:ans){
+			data.set(3, s.get(0));
+			Res.add(Sql_connetcton.killDetail(data));
+			
+		}
 		Vector<String> names=new Vector<String>();
 		for(String s:name)names.add(s);
 		TableModel tableModle=new DefaultTableModel(ans, names){
@@ -53,7 +65,7 @@ public class Fire extends JDialog {
                 return false;}//表格不允许被编辑
 		};
 		table.addMouseListener(new MouseListener() {
-			
+			Fire_Detail temp=null;
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				// TODO Auto-generated method stub
@@ -63,19 +75,27 @@ public class Fire extends JDialog {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+				if(temp!=null){
+					temp.dispose();
+					temp=null;
+				}
+				else{
+			//	System.out.println("press"+String.valueOf(e.getXOnScreen())+" "+String.valueOf(e.getYOnScreen()));
+					int row =((JTable)e.getSource()).rowAtPoint(e.getPoint());
+					temp=new Fire_Detail(Res.get(row), e.getXOnScreen(), e.getYOnScreen()-100);
+					temp.setVisible(true);
+				}
 			}
 			
 			@Override
 			public void mouseExited(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+				//temp.dispose();
 			}
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
+
 			}
 			
 			@Override
@@ -102,20 +122,20 @@ public class Fire extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		
-		JLabel label = new JLabel("\u5F00\u9664\u5B66\u5206:");
-		label.setBounds(10, 10, 85, 15);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		JLabel label = new JLabel("\u5FC5\u4FEE\u603B\u5E95\u7EBF:");
+		label.setBounds(6, 8, 72, 15);
 		contentPanel.add(label);
 		
-		textField = new JTextField(){
+		bi_text = new JTextField(){
 			public String getText(){
 				String s=super.getText();
 				if(s.equals(""))return "0";
 				else return s;
 			}
 		};
-		textField.setText("30");
-		textField.addKeyListener(new KeyListener() {
+		bi_text.setText("28");
+		bi_text.addKeyListener(new KeyListener() {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				if(!Character.isDigit(e.getKeyChar())){
@@ -127,22 +147,22 @@ public class Fire extends JDialog {
 			@Override
 			public void keyPressed(KeyEvent e) {}
 		});
-		textField.setBounds(66, 8, 42, 21);
-		contentPanel.add(textField);
-		textField.setColumns(10);
+		bi_text.setBounds(76, 6, 25, 21);
+		contentPanel.add(bi_text);
+		bi_text.setColumns(10);
 		
-		JLabel label_1 = new JLabel("\u8DDD\u79BB\u5206\u6570:");
-		label_1.setBounds(142, 10, 66, 15);
+		JLabel label_1 = new JLabel("\u9009\u4FEE\u603B\u5E95\u7EBF:");
+		label_1.setBounds(110, 8, 79, 15);
 		contentPanel.add(label_1);
 		
-		textField_1 = new JTextField(){
+		xuan_text = new JTextField(){
 			public String getText(){
 				String s=super.getText();
 				if(s.equals(""))return "0";
 				else return s;
 			}
 		};
-		textField_1.addKeyListener(new KeyListener() {
+		xuan_text.addKeyListener(new KeyListener() {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				if(!Character.isDigit(e.getKeyChar())){
@@ -154,10 +174,10 @@ public class Fire extends JDialog {
 			@Override
 			public void keyPressed(KeyEvent e) {}
 		});
-		textField_1.setText("2");
-		textField_1.setBounds(199, 8, 31, 21);
-		contentPanel.add(textField_1);
-		textField_1.setColumns(10);
+		xuan_text.setText("18");
+		xuan_text.setBounds(184, 6, 25, 21);
+		contentPanel.add(xuan_text);
+		xuan_text.setColumns(10);
 
 		
 		JButton button = new JButton("\u67E5\u8BE2");
@@ -166,12 +186,40 @@ public class Fire extends JDialog {
 				refresh();
 			}
 		});
-		button.setBounds(304, 8, 79, 23);
+		button.setBounds(345, 4, 79, 23);
 		contentPanel.add(button);
 		table=new JTable();
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(10, 35, 414, 185);
 		contentPanel.add(scrollPane);
+		
+		JLabel label_2 = new JLabel("\u5B66\u671F\u5FC5\u4FEE\u5E95\u7EBF:");
+		label_2.setBounds(224, 8, 89, 15);
+		contentPanel.add(label_2);
+		
+		qi_text = new JTextField() {
+			public String getText(){
+				String s=super.getText();
+				if(s.equals(""))return "0";
+				else return s;
+			}
+		};
+		qi_text.addKeyListener(new KeyListener() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(!Character.isDigit(e.getKeyChar())){
+					e.consume();
+				}
+			}
+			@Override
+			public void keyReleased(KeyEvent e) {}
+			@Override
+			public void keyPressed(KeyEvent e) {}
+		});
+		qi_text.setText("8");
+		qi_text.setColumns(10);
+		qi_text.setBounds(311, 6, 25, 21);
+		contentPanel.add(qi_text);
 		refresh();
 		{
 			JPanel buttonPane = new JPanel();
