@@ -53,7 +53,7 @@ public class Main extends JFrame {
 	 * Create the frame.
 	 */
 	public Main() {
-		setTitle("\u5B66\u7C4D\u7BA1\u7406\u7CFB\u7EDF-jxy");
+		setTitle("\u5B66\u7C4D\u7BA1\u7406\u7CFB\u7EDF-czjxy8898@gmail.com");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -152,7 +152,7 @@ public class Main extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel);
 		
-		JLabel lblNewLabel = new JLabel("<html><body><center>\r\nCopyright (C) 2013<br>\r\n\u8D3E\u65B0\u79B9<br>\r\n\u897F\u5B89\u7535\u5B50\u79D1\u6280\u5927\u5B66<br>\r\n03111002</center></body></html>");
+		JLabel lblNewLabel = new JLabel("<html><body><center>\r\nCopyright (C) 2013<br>\r\n\u8D3E\u65B0\u79B9<br>\r\n\u897F\u5B89\u7535\u5B50\u79D1\u6280\u5927\u5B66</center></body></html>");
 		lblNewLabel.addMouseListener(new MouseListener() {
 			
 			@Override

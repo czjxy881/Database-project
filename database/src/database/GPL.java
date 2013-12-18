@@ -33,7 +33,7 @@ public class GPL extends JDialog {
 	 * Create the dialog.
 	 */
 	public GPL() {
-		setTitle("Licenses");
+		setTitle("About");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		this.setResizable(false);
